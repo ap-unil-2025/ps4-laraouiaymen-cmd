@@ -3,8 +3,6 @@ name: GitHub Classroom Workflow
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
 
 permissions:
   checks: write
@@ -15,67 +13,6 @@ jobs:
   run-autograding-tests:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Test Problem 1 - Lists
-      id: test-problem1
-      continue-on-error: true
-      run: |
-        echo "::group::Problem 1: List Operations"
-        pytest test_assignment.py::TestProblem1 -v --tb=short
-        echo "::endgroup::"
-
-    - name: Test Problem 2 - Dictionaries
-      id: test-problem2
-      continue-on-error: true
-      run: |
-        echo "::group::Problem 2: Dictionary Operations"
-        pytest test_assignment.py::TestProblem2 -v --tb=short
-        echo "::endgroup::"
-
-    - name: Test Problem 3 - Contact Manager
-      id: test-problem3
-      continue-on-error: true
-      run: |
-        echo "::group::Problem 3: Contact Manager"
-        pytest test_assignment.py::TestProblem3 -v --tb=short
-        echo "::endgroup::"
-
-    - name: Test Problem 4 - JSON Operations
-      id: test-problem4
-      continue-on-error: true
-      run: |
-        echo "::group::Problem 4: JSON File Operations"
-        pytest test_assignment.py::TestProblem4 -v --tb=short
-        echo "::endgroup::"
-
-    - name: Test Bonus - Recursion
-      id: test-bonus
-      continue-on-error: true
-      run: |
-        echo "::group::Bonus: Recursion"
-        pytest test_assignment.py::TestBonusRecursion -v --tb=short || echo "Bonus tests skipped or failed (this is optional)"
-        echo "::endgroup::"
-
-    - name: Run all tests summary
-      run: |
-        echo "## Test Results Summary" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        pytest test_assignment.py -v --tb=short || true
-
-    - name: Autograding Reporter
-      uses: education/autograding@v1
-      continue-on-error: true
+    - uses: actions/checkout@v4
+    - uses: education/autograding@v1
