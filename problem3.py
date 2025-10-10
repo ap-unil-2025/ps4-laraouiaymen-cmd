@@ -21,9 +21,9 @@ def create_contact(name, phone, email=""):
         >>> create_contact("Alice", "555-0001", "alice@email.com")
         {'name': 'Alice', 'phone': '555-0001', 'email': 'alice@email.com'}
     """
-    # TODO: Implement this function
-    # Return a dictionary with the contact information
-    pass
+    dic = {"name": name, "phone": phone, "email": email}
+
+    return dic
 
 
 def add_contact(contacts, name, phone, email=""):
@@ -46,12 +46,10 @@ def add_contact(contacts, name, phone, email=""):
         >>> len(contacts)
         1
     """
-    # TODO: Implement this function
-    # Steps:
-    # 1. Create a contact using create_contact()
-    # 2. Add it to the contacts list
-    # 3. Return the contact
-    pass
+
+    new = create_contact(name, phone, email)
+    contacts.append(new)
+    return new
 
 
 def find_contact_by_name(contacts, name):
@@ -70,10 +68,12 @@ def find_contact_by_name(contacts, name):
         >>> find_contact_by_name(contacts, 'alice')
         {'name': 'Alice', 'phone': '555-0001', 'email': ''}
     """
-    # TODO: Implement this function
-    # Loop through contacts and compare names (case-insensitive)
-    # Hint: Use .lower() for case-insensitive comparison
-    pass
+
+    for i in contacts:
+        if i.get("name").lower() == name.lower():
+            return i
+
+    return None
 
 
 def search_contacts(contacts, search_term):
@@ -95,36 +95,15 @@ def search_contacts(contacts, search_term):
         >>> search_contacts(contacts, 'alice')
         [{'name': 'Alice Smith', 'phone': '555-0001', 'email': ''}]
     """
-    # TODO: Implement this function
-    # Find contacts where search_term appears in name OR phone
-    # Use .lower() for case-insensitive search
-    # Hint: Use 'in' operator to check if search_term is in the string
-    pass
 
+    results = []
+    term = search_term.lower()
 
-def delete_contact(contacts, name):
-    """
-    Delete a contact by name.
+    for i in contacts:
+        if term in i.get("name").lower() or term in i.get("phone"):
+            results.append(i)
 
-    Args:
-        contacts (list): List of contact dictionaries
-        name (str): Name of contact to delete
-
-    Returns:
-        bool: True if contact was deleted, False if not found
-
-    Example:
-        >>> contacts = [{'name': 'Alice', 'phone': '555-0001', 'email': ''}]
-        >>> delete_contact(contacts, 'Alice')
-        True
-        >>> len(contacts)
-        0
-    """
-    # TODO: Implement this function
-    # Find the contact and remove it from the list
-    # Return True if found and deleted, False otherwise
-    # Hint: Use enumerate() to get index, then use .pop() to remove
-    pass
+    return results
 
 
 def count_contacts_with_email(contacts):
@@ -145,9 +124,12 @@ def count_contacts_with_email(contacts):
         >>> count_contacts_with_email(contacts)
         1
     """
-    # TODO: Implement this function
-    # Count contacts where email is not empty
-    pass
+
+    nb = 0
+    for i in contacts:
+        if i.get("email") != "":
+            nb += 1
+    return nb
 
 
 def get_all_phone_numbers(contacts):
@@ -168,10 +150,10 @@ def get_all_phone_numbers(contacts):
         >>> get_all_phone_numbers(contacts)
         ['555-0001', '555-0002']
     """
-    # TODO: Implement this function
-    # Extract phone number from each contact
-    # Hint: Use list comprehension or a loop
-    pass
+
+    phone = [x.get("phone") for x in contacts]
+
+    return phone
 
 
 def sort_contacts_by_name(contacts):
@@ -193,9 +175,10 @@ def sort_contacts_by_name(contacts):
         >>> [c['name'] for c in sorted_contacts]
         ['Alice', 'Charlie']
     """
-    # TODO: Implement this function
-    # Use sorted() with a key function
-    # Hint: sorted(contacts, key=lambda c: c['name'])
+
+    sorted_list = sorted(contacts, key=lambda c: c["name"])
+    return sorted_list
+
     pass
 
 
@@ -210,9 +193,36 @@ def contact_exists(contacts, name):
     Returns:
         bool: True if contact exists, False otherwise
     """
-    # TODO: Implement this function
-    # Use find_contact_by_name and check if result is not None
-    pass
+
+    if find_contact_by_name(contacts, name) is None:
+        return False
+    return True
+
+
+def delete_contact(contacts, name):
+    """
+    Delete a contact by name.
+
+    Args:
+        contacts (list): List of contact dictionaries
+        name (str): Name of contact to delete
+
+    Returns:
+        bool: True if contact was deleted, False if not found
+
+    Example:
+        >>> contacts = [{'name': 'Alice', 'phone': '555-0001', 'email': ''}]
+        >>> delete_contact(contacts, 'Alice')
+        True
+        >>> len(contacts)
+        0
+    """
+
+    for i, j in enumerate(contacts):
+        if contacts[i].get("name") == name:
+            contacts.pop(i)
+            return True
+    return False
 
 
 # Test cases
@@ -227,7 +237,7 @@ if __name__ == "__main__":
     print("Test 1: create_contact")
     contact = create_contact("Alice", "555-0001", "alice@email.com")
     print(f"Created: {contact}")
-    assert contact == {'name': 'Alice', 'phone': '555-0001', 'email': 'alice@email.com'}
+    assert contact == {"name": "Alice", "phone": "555-0001", "email": "alice@email.com"}
     print("✓ Passed\n")
 
     # Test 2: add_contact
@@ -243,7 +253,7 @@ if __name__ == "__main__":
     print("Test 3: find_contact_by_name")
     found = find_contact_by_name(contacts, "alice")  # Case-insensitive
     print(f"Found: {found}")
-    assert found is not None and found['name'] == 'Alice'
+    assert found is not None and found["name"] == "Alice"
     print("✓ Passed\n")
 
     # Test 4: search_contacts
@@ -264,15 +274,15 @@ if __name__ == "__main__":
     print("Test 6: get_all_phone_numbers")
     phones = get_all_phone_numbers(contacts)
     print(f"Phone numbers: {phones}")
-    assert phones == ['555-0001', '555-0002', '555-0003']
+    assert phones == ["555-0001", "555-0002", "555-0003"]
     print("✓ Passed\n")
 
     # Test 7: sort_contacts_by_name
     print("Test 7: sort_contacts_by_name")
     sorted_contacts = sort_contacts_by_name(contacts)
-    names = [c['name'] for c in sorted_contacts]
+    names = [c["name"] for c in sorted_contacts]
     print(f"Sorted names: {names}")
-    assert names == ['Alice', 'Bob', 'Charlie']
+    assert names == ["Alice", "Bob", "Charlie"]
     print("✓ Passed\n")
 
     # Test 8: contact_exists

@@ -19,8 +19,8 @@ def create_number_list(start, end):
         [1, 2, 3, 4, 5]
 
     """
-    numbers = list(range(start,end+1))
-    
+    numbers = list(range(start, end + 1))
+
     return numbers
 
 
@@ -40,8 +40,8 @@ def filter_even_numbers(numbers):
     """
     # TODO: Implement this function
     # You can use a loop or list comprehension
-    even = [ x for x in numbers if x%2 == 0 ]
-    
+    even = [x for x in numbers if x % 2 == 0]
+
     return even
 
 
@@ -63,7 +63,7 @@ def square_numbers(numbers: list) -> list:
     # Hint: Try a list comprehension!
 
     square = [x**2 for x in numbers]
-    
+
     return square
 
 
@@ -84,7 +84,7 @@ def find_max_min(numbers):
     # TODO: Implement this function
     # You can use max() and min() built-in functions
     max_min = (max(numbers), min(numbers))
-    
+
     return max_min
 
 
@@ -106,11 +106,10 @@ def remove_duplicates(items):
     # Hint: You can use a loop and check if item is already in result list
     # Or convert to set and back to list (but this doesn't preserve order)
     results = []
-    
+
     for i in items:
         if i not in results:
             results.append(i)
-
 
     return results
 
@@ -135,7 +134,7 @@ def merge_lists(list1, list2):
     """
     # TODO: Implement this function
     # Hint: Use a loop with index, handle different lengths
-    new_list =[]
+    new_list = []
     if len(list1) > len(list2):
         smallest = list2
         longest = list1.copy()
@@ -149,9 +148,8 @@ def merge_lists(list1, list2):
         longest.pop(0)
 
     new_list.extend(longest)
-    
-    return new_list
 
+    return new_list
 
 
 def list_statistics(numbers):
@@ -170,19 +168,22 @@ def list_statistics(numbers):
     """
     if not numbers:
         return None
-    
 
     sum_list = sum(numbers)
     count = len(numbers)
-    average = sum_list/count
+    average = sum_list / count
     maximum = max(numbers)
     minimum = min(numbers)
 
-    stat = {"sum": sum_list, "average": average, "count": count, "max": maximum, "min": minimum}
+    stat = {
+        "sum": sum_list,
+        "average": average,
+        "count": count,
+        "max": maximum,
+        "min": minimum,
+    }
 
     return stat
-    
-
 
 
 def chunk_list(items, chunk_size):
@@ -263,7 +264,7 @@ if __name__ == "__main__":
     print("Test 7: list_statistics([1, 2, 3, 4, 5])")
     result = list_statistics([1, 2, 3, 4, 5])
     print(f"Result: {result}")
-    expected = {'sum': 15, 'average': 3.0, 'count': 5, 'max': 5, 'min': 1}
+    expected = {"sum": 15, "average": 3.0, "count": 5, "max": 5, "min": 1}
     assert result == expected, "Failed!"
     print("✓ Passed\n")
 

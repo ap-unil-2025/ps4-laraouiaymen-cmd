@@ -27,15 +27,13 @@ def factorial(n):
         >>> factorial(0)
         1
     """
-    # TODO: Implement this function recursively
-    # Base case: if n is 0 or 1, return 1
-    # Recursive case: return n * factorial(n-1)
 
-    # Hint:
-    # if n <= 1:
-    #     return 1
-    # return n * factorial(n - 1)
-    pass
+    if n == 1 or n == 0:
+        return 1
+
+    elif n > 1:
+        results = n * factorial(n - 1)
+        return results
 
 
 def countdown(n):
@@ -57,7 +55,13 @@ def countdown(n):
     # TODO: Implement this function recursively
     # Base case: if n is 0, print "Blastoff!" and return
     # Recursive case: print n, then call countdown(n-1)
-    pass
+    if n == 0:
+        print("Blastoff!!")
+        return None
+
+    elif n >= 1:
+        print(n)
+        countdown(n - 1)
 
 
 def sum_list(numbers):
@@ -82,7 +86,12 @@ def sum_list(numbers):
     # if not numbers:  # empty list
     #     return 0
     # return numbers[0] + sum_list(numbers[1:])
-    pass
+
+    if len(numbers) == 0:
+        return 0
+    else:
+        somme = numbers[0] + sum_list(numbers[1:])
+        return somme
 
 
 def fibonacci(n):
@@ -108,7 +117,10 @@ def fibonacci(n):
     # TODO: Implement this function recursively
     # Base cases: if n is 0, return 0; if n is 1, return 1
     # Recursive case: return fibonacci(n-1) + fibonacci(n-2)
-    pass
+    if n <= 1:
+        return n
+
+    return fibonacci(n - 1) + fibonacci(n - 2)
 
 
 def power(base, exponent):
