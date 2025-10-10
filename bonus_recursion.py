@@ -143,7 +143,10 @@ def power(base, exponent):
     # TODO: Implement this function recursively
     # Base case: if exponent is 0, return 1
     # Recursive case: return base * power(base, exponent-1)
-    pass
+    if exponent == 0:
+        return 1
+
+    return base * power(base, exponent - 1)
 
 
 def reverse_string(text):
@@ -168,7 +171,10 @@ def reverse_string(text):
     # if len(text) <= 1:
     #     return text
     # return text[-1] + reverse_string(text[:-1])
-    pass
+
+    if len(text) <= 1:
+        return text
+    return text[-1] + reverse_string(text[:-1])
 
 
 def count_down_list(n):
@@ -188,7 +194,10 @@ def count_down_list(n):
     # TODO: Implement this function recursively
     # Base case: if n is 0, return empty list
     # Recursive case: return [n] + count_down_list(n-1)
-    pass
+
+    if n == 0:
+        return []
+    return [n] + count_down_list(n - 1)
 
 
 def flatten_list(nested_list):
@@ -212,14 +221,13 @@ def flatten_list(nested_list):
     #   - If not, keep it as is
 
     # Hint:
-    # result = []
-    # for item in nested_list:
-    #     if isinstance(item, list):
-    #         result.extend(flatten_list(item))
-    #     else:
-    #         result.append(item)
-    # return result
-    pass
+    result = []
+    for item in nested_list:
+        if isinstance(item, list):
+            result.extend(flatten_list(item))
+        else:
+            result.append(item)
+    return result
 
 
 # Test cases
